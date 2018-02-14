@@ -24,8 +24,7 @@ RUN apk --no-cache add openssl openssh git curl \
     && mv git-lfs-2.3.4/git-lfs /usr/bin/ \
     && rm -rf git-lfs-2.3.4 \
     && rm -rf git-lfs-linux-amd64-2.3.4.tar.gz \
-    && rm -rf /var/lib/apt/lists/* \
-    && rm /var/cache/apk/*
+    && rm -rf /var/lib/apt/lists/*
 
 ENV MAVEN_HOME /usr/share/maven
 ENV MAVEN_CONFIG "$USER_HOME_DIR/.m2"
