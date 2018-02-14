@@ -18,6 +18,13 @@ RUN mkdir -p /usr/share/maven /usr/share/maven/ref \
   && rm -f /tmp/apache-maven.tar.gz \
   && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
 
+RUN apk --no-cache add openssl git curl \
+    && curl -sLO https://github.com/github/git-lfs/releases/download/v2.3.4/git-lfs-linux-amd64-2.3.4.tar.gz \
+    && tar zxvf git-lfs-linux-amd64-2.3.4.tar.gz \
+    && mv git-lfs-2.3.4/git-lfs /usr/bin/ \
+    && rm -rf git-lfs-2.3.4 \
+    && rm -rf git-lfs-linux-amd64-2.3.4.tar.gz
+
 ENV MAVEN_HOME /usr/share/maven
 ENV MAVEN_CONFIG "$USER_HOME_DIR/.m2"
 
