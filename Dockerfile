@@ -16,9 +16,7 @@ RUN mkdir -p /usr/share/maven /usr/share/maven/ref \
   && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
 
 # Git LFS
-RUN apk add --no-cache git
-
-RUN apk add --no-cache git \
+RUN apk add --no-cache git openssh \
     && curl -sLO https://github.com/github/git-lfs/releases/download/v2.3.4/git-lfs-linux-amd64-2.3.4.tar.gz \
     && tar zxvf git-lfs-linux-amd64-2.3.4.tar.gz \
     && mv git-lfs-2.3.4/git-lfs /usr/bin/ \
