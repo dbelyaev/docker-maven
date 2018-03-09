@@ -1,8 +1,5 @@
-#
-# based on work from: https://github.com/carlossg/docker-maven
-#
-
-FROM openjdk:8-jdk-alpine
+# DO NOT UPGRADE alpine until https://bugs.alpinelinux.org/issues/7372 is fixed
+FROM openjdk:8u121-jdk-alpine
 
 RUN apk add --no-cache curl tar bash
 
@@ -18,7 +15,10 @@ RUN mkdir -p /usr/share/maven /usr/share/maven/ref \
   && rm -f /tmp/apache-maven.tar.gz \
   && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
 
-RUN apk --no-cache add openssl openssh git curl \
+# Git LFS
+RUN apk add --no-cache git
+
+RUN apk add --no-cache git \
     && curl -sLO https://github.com/github/git-lfs/releases/download/v2.3.4/git-lfs-linux-amd64-2.3.4.tar.gz \
     && tar zxvf git-lfs-linux-amd64-2.3.4.tar.gz \
     && mv git-lfs-2.3.4/git-lfs /usr/bin/ \
