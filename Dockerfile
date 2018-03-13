@@ -1,8 +1,5 @@
-#
-# based on work from: https://github.com/carlossg/docker-maven
-#
-
-FROM openjdk:8-jdk-alpine
+# DO NOT UPGRADE alpine until https://bugs.alpinelinux.org/issues/7372 is fixed
+FROM openjdk:8u121-jdk-alpine
 
 RUN apk add --no-cache curl tar bash
 
@@ -23,11 +20,6 @@ ENV MAVEN_CONFIG "$USER_HOME_DIR/.m2"
 
 COPY mvn-entrypoint.sh /usr/local/bin/mvn-entrypoint.sh
 COPY settings-docker.xml /usr/share/maven/ref/
-
-# add Oracle JDBC8 v12.2.0.1 as local Maven dependency
-RUN curl -o /tmp/ojdbc8_v12.2.0.1.jar https://dbelyaev.github.io/ojdbc/ojdbc8_v12.2.0.1.jar
-RUN mvn install:install-file -s /usr/share/maven/ref/settings-docker.xml -DgroupId=com.oracle -DartifactId=ojdbc8 -Dversion=12.2.0.1 -Dpackaging=jar -Dfile=/tmp/ojdbc8_v12.2.0.1.jar -DgeneratePom=true
-RUN rm /tmp/ojdbc8_v12.2.0.1.jar
 
 # uncomment this section and add your own pom.xml in order to pre-package dependencies into image
 #COPY pom.xml /tmp/pom.xml
